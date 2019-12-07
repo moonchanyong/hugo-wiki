@@ -17,9 +17,18 @@ RUN set -xe \
     && cd wiki \
     && git init \
     && git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke \
-    && echo 'theme = "ananke"' >> config.toml \
-    && hugo new posts/my-first-post.md 
-    
+    && echo 'theme = "ananke"' >> config.toml 
+#    && cd /app \
+#    && git clone https://github.com/seungjin/hugo-wiki.git \
+#    #&& hugo new posts/my-first-post.md
+#    && mv huggo-wiki/posts ./wiki/contents/posts \
+#    && rm -fr hugo-wiki
+
+COPY ./content /app/wiki/content
+
+RUN  cd /app/wiki \
+    && hugo
+     
 EXPOSE 80
 
-CMD ["hugo","server", "--source", "/app/wiki", "--port", "80", "--bind", "0.0.0.0"]
+CMD ["hugo", "server", "-w", "-D", "--source", "/app/wiki", "--port", "80", "--bind", "0.0.0.0"]
