@@ -20,6 +20,6 @@ RUN set -xe \
     && echo 'theme = "ananke"' >> config.toml \
     && hugo new posts/my-first-post.md 
     
-EXPOSE 9000
+EXPOSE 80
 
-CMD ["hugo","server", "--source", "/app/wiki", "--port", "9000", "--bind", "0.0.0.0"]
+CMD ["hugo","server", "--source", "/app/wiki", "--port", "80", "--bind", "0.0.0.0"]
